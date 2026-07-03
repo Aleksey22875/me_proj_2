@@ -66,6 +66,9 @@ namespace
         {
             std::cout << task.val_1 << ' ' << task.operation << ' ' << " = " << task.result << std::endl;
 
+        }else if(task.status == 2)
+        {
+            std::cout << "Type overflow!" << std::endl;
         }
     }
 }
