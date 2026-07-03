@@ -1,6 +1,47 @@
 #include "app.h"
+#include <iostream>
+#include <unistd.h>
+#include <cstdlib>
 
 int main(int argc, char** argv)
 {
-	app::run(argc, argv);
+	int x = 0;
+	int y = 0;
+	char op = 0;
+
+	int opt;
+
+	bool hasY = false;
+
+	while((opt = getopt(argc, argv, "x:y:o:")) != -1)
+	{
+		switch (opt)
+		{
+		case 'x':
+			x = std::atoi(optarg);
+			break;
+		case 'y':
+			y = std::atoi(optarg);
+			hasY = true;
+			break;
+		case 'o':
+			op = optarg[0];
+			break;
+		
+		default:
+			std::cout << "Invalid arguments\n";
+			return 1;
+		}
+	}
+
+	if(op != '!' && !hasY)
+	{
+		std::cout << "Missing second operand\n";
+		return 1;
+	}
+	if(op == '!' && !hasY)
+	{
+		y = 0;
+	}
+	app::run(x, y, op);
 }

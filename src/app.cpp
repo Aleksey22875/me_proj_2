@@ -8,16 +8,16 @@ namespace
     {
         int val_1;
         char operation;
-        int val_2;
+        int val_2 = 0;
         int status;
         int result;
     };
     Task task;
-    void parse(int argc, char **argv, Task &task)
+    void parse(int x, int y, char op, Task &task)
     {
-        task.val_1 = std::atoi(argv[1]);
-        task.operation = *(argv[2]);
-        task.val_2 = std::atoi(argv[3]);
+        task.val_1 = x;
+        task.operation = op;
+        task.val_2 = y;
     }
 
     void calculate(Task &task)
@@ -26,22 +26,22 @@ namespace
         switch (task.operation)
         {
         case '+':
-            task.result = libmath::addition(task.val_1, task.val_2);
+            task.status = libmath::addition(task.val_1, task.val_2, task.result);
             break;
         case '-':
-            task.result = libmath::subtraction(task.val_1, task.val_2);
+            task.status = libmath::subtraction(task.val_1, task.val_2, task.result);
             break;
         case '*':
-            task.result = libmath::multiplication(task.val_1, task.val_2);
+            task.status = libmath::multiplication(task.val_1, task.val_2, task.result);
             break;
         case '/':
             task.status = libmath::division(task.val_1, task.val_2, task.result);
             break;
         case '^':
-            task.result = libmath::power(task.val_1, task.val_2);
+            task.status = libmath::power(task.val_1, task.val_2, task.result);
             break;
         case '!':
-            task.result = libmath::factorial(task.val_1);
+            task.status = libmath::factorial(task.val_1, task.result);
             break;
 
         default:
@@ -71,10 +71,10 @@ namespace
 }
 namespace app
 {
-    void run(int argc, char **argv)
+    void run(int x, int y, char op)
     {
         Task task;
-        parse(argc, argv, task);
+        parse(x, y, op, task);
         calculate(task);
         output(task);
     }

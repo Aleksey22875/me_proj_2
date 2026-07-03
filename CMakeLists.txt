@@ -35,3 +35,5 @@ add_executable(calculator
 target_include_directories(calculator PRIVATE
     ${libmath_SOURCE_DIR}/include
 )
+
+install(TARGETS calculator RUNTIME DESTINATION bin)
