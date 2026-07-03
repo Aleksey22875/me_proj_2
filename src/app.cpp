@@ -1,5 +1,5 @@
 #include "app.h"
-#include "libmath.h"
+#include "libmath.hpp"
 #include <iostream>
 
 namespace
@@ -40,6 +40,9 @@ namespace
         case '^':
             task.result = libmath::power(task.val_1, task.val_2);
             break;
+        case '!':
+            task.result = libmath::factorial(task.val_1);
+            break;
 
         default:
             task.status = 1;
@@ -48,7 +51,7 @@ namespace
 
     void output(Task &task)
     {
-        if (task.status == 0)
+        if (task.status == 0 && task.operation != '!')
         {
             std::cout << task.val_1 << ' ' << task.operation << ' ' << task.val_2 << " = " << task.result << std::endl;
         }
@@ -59,12 +62,16 @@ namespace
         else if (task.status == 1)
         {
             std::cout << "Unknow error!" << std::endl;
+        }else if(task.operation == '!')
+        {
+            std::cout << task.val_1 << ' ' << task.operation << ' ' << " = " << task.result << std::endl;
+
         }
     }
 }
 namespace app
 {
-    void run(int argc, char** argv)
+    void run(int argc, char **argv)
     {
         Task task;
         parse(argc, argv, task);
