@@ -1,0 +1,54 @@
+# =========================
+# Build folders (CMake)
+# =========================
+build/
+cmake-build-*/
+out/
+bin/
+lib/
+
+# =========================
+# CMake generated files
+# =========================
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+compile_commands.json
+CTestTestfile.cmake
+CMakeScripts/
+_testing/
+
+# =========================
+# Compiled objects
+# =========================
+*.o
+*.obj
+*.so
+*.a
+*.out
+*.exe
+*.dll
+
+# =========================
+# Debug / logs
+# =========================
+*.log
+
+# =========================
+# IDE / editor (VS Code)
+# =========================
+.vscode/
+*.code-workspace
+
+# =========================
+# OS junk
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Other
+# =========================
+*.swp
+*.swo
