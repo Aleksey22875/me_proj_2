@@ -13,7 +13,7 @@ int main(int argc, char** argv)
 
 	bool hasY = false;
 
-	while((opt = getopt(argc, argv, "x:y:o:")) != -1)
+	while((opt = getopt(argc, argv, "x:y:o:h")) != -1)
 	{
 		switch (opt)
 		{
@@ -26,6 +26,9 @@ int main(int argc, char** argv)
 			break;
 		case 'o':
 			op = optarg[0];
+			break;
+		case 'h':
+			app::print_help();
 			break;
 		
 		default:
