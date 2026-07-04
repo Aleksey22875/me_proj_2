@@ -53,7 +53,7 @@ endif()
 
 FetchContent_Declare(
     libmath
-    GIT_REPOSITORY git@github.com:Aleksey22875/libmath.git
+    GIT_REPOSITORY https://github.com/Aleksey22875/libmath.git
     GIT_TAG main
 )
 
