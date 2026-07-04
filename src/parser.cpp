@@ -53,5 +53,6 @@ int parse(int argc, char** argv)
         y = 0;
     }
     app::run(x, y, op);
+    return 0;
 }
 } // namespace Parser

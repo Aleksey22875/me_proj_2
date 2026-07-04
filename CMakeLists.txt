@@ -66,6 +66,7 @@ FetchContent_MakeAvailable(libmath)
 add_executable(calculator
     src/main.cpp
     src/app.cpp
+    src/parser.cpp
 )
 
 if(ENABLE_CLANG_FORMAT)
