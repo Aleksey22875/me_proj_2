@@ -2,7 +2,7 @@
 
 #include "libmath.hpp"
 
-#include <iostream>
+#include <cstdio>
 
 namespace
 {
@@ -15,7 +15,7 @@ struct Task
     int result;
 };
 Task task;
-void parse(int x, int y, char op, Task& task)
+void pars(int x, int y, char op, Task& task)
 {
     task.val_1 = x;
     task.operation = op;
@@ -59,25 +59,30 @@ void output(Task& task)
 {
     if (task.status == 0 && task.operation != '!')
     {
-        std::cout << task.val_1 << ' ' << task.operation << ' ' << task.val_2
-                  << " = " << task.result << std::endl;
+        printf("%d %c %d = %d\n",
+            task.val_1,
+            task.operation,
+            task.val_2,
+            task.result);
     }
     else if (task.status == -1)
     {
-        std::cout << "division by zero!" << std::endl;
+        printf("division by zero!\n");
     }
     else if (task.status == 1)
     {
-        std::cout << "Unknow error!" << std::endl;
+        printf("Unknow error!\n");
     }
     else if (task.operation == '!')
     {
-        std::cout << task.val_1 << ' ' << task.operation << ' ' << " = "
-                  << task.result << std::endl;
+        printf("%d %c = %d\n",
+            task.val_1,
+            task.operation,
+            task.result);
     }
     else if (task.status == 2)
     {
-        std::cout << "Type overflow!" << std::endl;
+        printf("Type overflow!");
     }
 }
 } // namespace
@@ -86,21 +91,21 @@ namespace app
 void run(int x, int y, char op)
 {
     Task task;
-    parse(x, y, op, task);
+    pars(x, y, op, task);
     calculate(task);
     output(task);
 }
 
 void print_help()
 {
-    std::cout << "Calculator usage:\n";
-    std::cout << "  -x <number>   first operand\n";
-    std::cout << "  -y <number>   second operand\n";
-    std::cout << "  -o <op>       operation (+, -, *, /, ^)\n";
-    std::cout << "  -h             show help\n\n";
+    printf("Calculator usage:\n");
+    printf("  -x <number>   first operand\n");
+    printf("  -y <number>   second operand\n");
+    printf("  -o <op>       operation (+, -, *, /, ^)\n");
+    printf("  -h             show help\n\n");
 
-    std::cout << "Examples:\n";
-    std::cout << "  calculator -x 5 -y 10 -o +\n";
-    std::cout << "  calculator -x 2 -y 3 -o ^\n";
+    printf("Examples:\n");
+    printf("  calculator -x 5 -y 10 -o +\n");
+    printf("  calculator -x 2 -y 3 -o ^\n");
 }
 } // namespace app
