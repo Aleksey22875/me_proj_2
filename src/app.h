@@ -3,4 +3,5 @@
 namespace app
 {
     void run(int x, int y, char op);
+    void print_help();
 }
