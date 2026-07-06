@@ -1,7 +1,5 @@
 #include "parser.h"
 
-#include "app.h"
-
 #include <unistd.h>
 
 #include <cstdlib>
@@ -9,7 +7,7 @@
 #include <cstdio>
 namespace Parser
 {
-int parse(int argc, char** argv)
+int parse(int argc, char** argv, app::Task& task)
 {
     int x = 0;
     int y = 0;
@@ -35,7 +33,7 @@ int parse(int argc, char** argv)
                 break;
             case 'h':
                 app::print_help();
-                break;
+                return 3;
 
             default:
                 printf("Invalid arguments\n"); 
@@ -52,7 +50,9 @@ int parse(int argc, char** argv)
     {
         y = 0;
     }
-    app::run(x, y, op);
+    task.val_1 = x;
+    task.operation = op;
+    task.val_2 = y;
     return 0;
 }
 } // namespace Parser

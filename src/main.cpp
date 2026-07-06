@@ -3,5 +3,6 @@
 
 int main(int argc, char** argv)
 {
-    Parser::parse(argc, argv);
+    app::run(argc, argv);
+    return 0;
 }

@@ -2,27 +2,22 @@
 
 #include "libmath.hpp"
 
+#include "parser.h"
+
 #include <cstdio>
+
+app::Task task;
 
 namespace
 {
-struct Task
-{
-    int val_1;
-    char operation;
-    int val_2 = 0;
-    int status;
-    int result;
-};
-Task task;
-void pars(int x, int y, char op, Task& task)
+void pars(int x, int y, char op, app::Task& task)
 {
     task.val_1 = x;
     task.operation = op;
     task.val_2 = y;
 }
 
-void calculate(Task& task)
+void calculate(app::Task& task)
 {
     task.status = 0;
     switch (task.operation)
@@ -55,7 +50,7 @@ void calculate(Task& task)
     }
 }
 
-void output(Task& task)
+void output(app::Task& task)
 {
     if (task.status == 0 && task.operation != '!')
     {
@@ -88,10 +83,10 @@ void output(Task& task)
 } // namespace
 namespace app
 {
-void run(int x, int y, char op)
+void run(int argc, char** argv)
 {
-    Task task;
-    pars(x, y, op, task);
+    task.status = Parser::parse(argc, argv, task);
+    if(task.status == 3) return;
     calculate(task);
     output(task);
 }
