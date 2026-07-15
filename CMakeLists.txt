@@ -65,9 +65,13 @@ FetchContent_MakeAvailable(libmath)
 
 add_executable(calculator
     src/main.cpp
-    src/app.cpp
+    src/application.cpp
+    src/calculator.cpp
     src/parser.cpp
+    src/task.cpp
 )
+
+
 
 if(ENABLE_CLANG_FORMAT)
     add_dependencies(calculator clang-format-target)
@@ -80,6 +84,7 @@ if(ENABLE_CLANG_TIDY)
 endif()
 
 target_include_directories(calculator PRIVATE
+    include
     ${libmath_SOURCE_DIR}/include
 )
 

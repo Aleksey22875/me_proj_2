@@ -1,7 +1,9 @@
-#include "app.h"
+#include "../include/application.h"
 
 int main(int argc, char** argv)
 {
-    app::run(argc, argv);
+    
+    Application app;
+    app.run(argc, argv);
     return 0;
 }

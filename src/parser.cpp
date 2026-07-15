@@ -1,58 +1,36 @@
-#include "parser.h"
+#include "../include/parser.h"
 
-#include <unistd.h>
+#include <stdexcept>
+#include <string>
 
-#include <cstdlib>
-
-#include <cstdio>
-namespace Parser
+void Parser::print_help()
 {
-int parse(int argc, char** argv, app::Task& task)
-{
-    int x = 0;
-    int y = 0;
-    char op = 0;
+    printf("Calculator usage:\n");
+    printf("  -x <number>   first operand\n");
+    printf("  -y <number>   second operand\n");
+    printf("  -o <op>       operation (+, -, *, /, ^)\n");
+    printf("  -h             show help\n\n");
 
-    int opt;
-
-    bool hasY = false;
-
-    while ((opt = getopt(argc, argv, "x:y:o:h")) != -1)
-    {
-        switch (opt)
-        {
-            case 'x':
-                x = atoi(optarg);
-                break;
-            case 'y':
-                y = atoi(optarg);
-                hasY = true;
-                break;
-            case 'o':
-                op = optarg[0];
-                break;
-            case 'h':
-                app::print_help();
-                return 3;
-
-            default:
-                printf("Invalid arguments\n"); 
-                return 1;
-        }
-    }
-
-    if (op != '!' && !hasY)
-    {
-        printf("Missing second operand\n");
-        return 1;
-    }
-    if (op == '!' && !hasY)
-    {
-        y = 0;
-    }
-    task.val_1 = x;
-    task.operation = op;
-    task.val_2 = y;
-    return 0;
+    printf("Examples:\n");
+    printf("  calculator -x 5 -y 10 -o +\n");
+    printf("  calculator -x 2 -y 3 -o ^\n");
 }
-} // namespace Parser
+
+Task Parser::parse(int argc, char** argv)
+{
+    if(argc == 3)
+    {
+        return Task(std::stoi(argv[1]), argv[2][0]);
+
+    }
+    if(argc == 2 && std::string(argv[1]) == "-h")
+    {
+        Parser::print_help();
+    }
+    if (argc < 3 || argc > 4)
+    {
+        throw std::invalid_argument("Wrong argument count");
+    }
+    
+    return Task(std::stoi(argv[1]), argv[2][0], std::stoi(argv[3]));
+}
