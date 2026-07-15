@@ -26,6 +26,7 @@ Task Parser::parse(int argc, char** argv)
     if(argc == 2 && std::string(argv[1]) == "-h")
     {
         Parser::print_help();
+        std::exit(0); 
     }
     if (argc < 3 || argc > 4)
     {
