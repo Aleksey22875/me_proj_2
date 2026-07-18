@@ -11,7 +11,7 @@ void Application::run(int argc, char** argv)
     Task tasks = parser.parse(argc, argv);
 
     calculator.calculate(tasks);
-    if(tasks.getStatus() == 0 && tasks.getOperation() != '!')
+    if(tasks.getStatus() == 0 && tasks.getOperation() != "!")
     {
         std::cout << tasks.getVal_1() << ' ' << tasks.getOperation() << ' ' << tasks.getVal_2().value() << " = " << tasks.getResult() << std::endl;
 
@@ -23,7 +23,7 @@ void Application::run(int argc, char** argv)
     }else if(tasks.getStatus() == 2)
     {
         std::cout << "Overflow type!" << std::endl;
-    }else if(tasks.getOperation() == '!')
+    }else if(tasks.getOperation() == "!")
     {
         std::cout << tasks.getVal_1() << ' ' << tasks.getOperation() << " = " << tasks.getResult() << std::endl;
     }

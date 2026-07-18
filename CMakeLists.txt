@@ -8,6 +8,18 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 include(FetchContent)
 
 # =========================
+# JSON
+# =========================
+
+FetchContent_Declare(
+    json
+    GIT_REPOSITORY https://github.com/nlohmann/json.git
+    GIT_TAG v3.11.3
+)
+
+FetchContent_MakeAvailable(json)
+
+# =========================
 # clang-format
 # =========================
 
@@ -71,8 +83,6 @@ add_executable(calculator
     src/task.cpp
 )
 
-
-
 if(ENABLE_CLANG_FORMAT)
     add_dependencies(calculator clang-format-target)
 endif()
@@ -86,6 +96,10 @@ endif()
 target_include_directories(calculator PRIVATE
     include
     ${libmath_SOURCE_DIR}/include
+)
+
+target_link_libraries(calculator PRIVATE
+    nlohmann_json::nlohmann_json
 )
 
 install(TARGETS calculator RUNTIME DESTINATION bin)

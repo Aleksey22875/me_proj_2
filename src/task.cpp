@@ -1,6 +1,6 @@
 #include "../include/task.h"
 
-Task::Task(int val_1, char operation, std::optional<int> val_2) :
+Task::Task(int val_1, std::string operation, std::optional<int> val_2) :
     value_1(val_1), operation(operation), value_2(val_2)
 {}
 int Task::getVal_1() const
@@ -23,6 +23,12 @@ int Task::getStatus() const
     return status;
 }
 
+std::string Task::getOperation() const
+{
+    
+    return operation;
+}
+
 void Task::setStatus(int stat)
 {
     this->status = stat;
@@ -33,8 +39,18 @@ void Task::setResult(int res)
     this->result = res;
 }
 
-char Task::getOperation() const
+void Task::setVal_1(int res)
 {
-    
-    return operation;
+    value_1 = res;
 }
+
+void Task::setVal_2(int res)
+{
+    value_2 = res;
+}
+
+void Task::setOperation(std::string& res)
+{
+    operation = res;
+}
+
