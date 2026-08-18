@@ -35,4 +35,8 @@ void Application::run(int argc, char** argv)
     {
         std::cout << "Invalid argument: " << e.what() << std::endl;
     }
+    catch (const std::exception& e)
+    {
+        std::cout << "Error: " << e.what() << std::endl;
+    }
 }
