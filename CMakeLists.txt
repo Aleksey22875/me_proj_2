@@ -72,6 +72,20 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(libmath)
 
 # =========================
+# GoogleTest
+# =========================
+
+FetchContent_Declare(
+    googletest
+    GIT_REPOSITORY https://github.com/google/googletest.git
+    GIT_TAG v1.17.0
+)
+
+FetchContent_MakeAvailable(googletest)
+
+enable_testing()
+
+# =========================
 # calculator
 # =========================
 
@@ -81,6 +95,7 @@ add_executable(calculator
     src/calculator.cpp
     src/parser.cpp
     src/task.cpp
+    
 )
 
 if(ENABLE_CLANG_FORMAT)
@@ -103,3 +118,19 @@ target_link_libraries(calculator PRIVATE
 )
 
 install(TARGETS calculator RUNTIME DESTINATION bin)
+
+
+# tests
+# =========================
+
+add_executable(calculator_test
+    calculator_test/app_test.cpp
+)
+
+target_link_libraries(calculator_test
+    PRIVATE
+    GTest::gtest_main
+)
+include(GoogleTest)
+
+gtest_discover_tests(calculator_test)
