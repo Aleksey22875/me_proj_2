@@ -1,37 +1,38 @@
 #include "../include/application.h"
 
-#include "../include/parser.h"
-
 #include <iostream>
+#include <stdexcept>
 
 void Application::run(int argc, char** argv)
-{   
+{
     try
-    { 
-    Task tasks = parser.parse(argc, argv);
+    {
+        Task task = parser.parse(argc, argv);
 
-    calculator.calculate(tasks);
-    if(tasks.getStatus() == 0 && tasks.getOperation() != "!")
-    {
-        std::cout << tasks.getVal_1() << ' ' << tasks.getOperation() << ' ' << tasks.getVal_2().value() << " = " << tasks.getResult() << std::endl;
+        calculator.calculate(task);
 
-    }else if(tasks.getStatus() == -1){
-        std::cout << "Devision by zero!" << std::endl;
-    }else if(tasks.getStatus() == 1)
-    {
-        std::cout << "Unknow error!" << std::endl;
-    }else if(tasks.getStatus() == 2)
-    {
-        std::cout << "Overflow type!" << std::endl;
-    }else if(tasks.getOperation() == "!")
-    {
-        std::cout << tasks.getVal_1() << ' ' << tasks.getOperation() << " = " << tasks.getResult() << std::endl;
+        if (task.getOperation() == "!")
+        {
+            std::cout << task.getVal_1() << " " << task.getOperation() << " = "
+                      << task.getResult() << std::endl;
+        }
+        else
+        {
+            std::cout << task.getVal_1() << " " << task.getOperation() << " "
+                      << task.getVal_2().value() << " = " << task.getResult()
+                      << std::endl;
+        }
     }
-
-    }
-    catch (const std::exception& e)
+    catch (const std::overflow_error& e)
     {
-        std::cout << e.what() << std::endl;
+        std::cout << "Overflow: " << e.what() << std::endl;
     }
-    
+    catch (const std::domain_error& e)
+    {
+        std::cout << "Domain error: " << e.what() << std::endl;
+    }
+    catch (const std::invalid_argument& e)
+    {
+        std::cout << "Invalid argument: " << e.what() << std::endl;
+    }
 }
