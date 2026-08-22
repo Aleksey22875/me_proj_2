@@ -107,7 +107,6 @@ add_executable(calculator
     src/calculator.cpp
     src/parser.cpp
     src/task.cpp
-    include/logger.h
     src/logger.cpp
     
 )
@@ -125,10 +124,6 @@ endif()
 target_include_directories(calculator PRIVATE
     include
     ${libmath_SOURCE_DIR}/include
-)
-
-target_link_libraries(calculator PRIVATE
-    nlohmann_json::nlohmann_json
 )
 
 target_link_libraries(calculator PRIVATE
