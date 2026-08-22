@@ -17,6 +17,18 @@ FetchContent_Declare(
     GIT_TAG v3.11.3
 )
 
+# =========================
+# spdlog
+# =========================
+
+FetchContent_Declare(
+    spdlog
+    GIT_REPOSITORY https://github.com/gabime/spdlog.git
+    GIT_TAG v1.17.0
+)
+
+FetchContent_MakeAvailable(spdlog)
+
 FetchContent_MakeAvailable(json)
 
 # =========================
@@ -95,6 +107,8 @@ add_executable(calculator
     src/calculator.cpp
     src/parser.cpp
     src/task.cpp
+    include/logger.h
+    src/logger.cpp
     
 )
 
@@ -117,6 +131,11 @@ target_link_libraries(calculator PRIVATE
     nlohmann_json::nlohmann_json
 )
 
+target_link_libraries(calculator PRIVATE
+    nlohmann_json::nlohmann_json
+    spdlog::spdlog
+)
+
 install(TARGETS calculator RUNTIME DESTINATION bin)
 
 
@@ -127,10 +146,15 @@ add_executable(calculator_test
     calculator_test/app_test.cpp
 )
 
+target_include_directories(calculator_test PRIVATE
+    ${libmath_SOURCE_DIR}/include
+)
+
 target_link_libraries(calculator_test
     PRIVATE
     GTest::gtest_main
+    math
 )
-include(GoogleTest)
 
+include(GoogleTest)
 gtest_discover_tests(calculator_test)
