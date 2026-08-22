@@ -17,7 +17,7 @@ void Application::run(int argc, char** argv)
 
         calculator.calculate(task);
 
-        Logger::instance().info("Calculation comleted, result: " + std::to_string(task.getResult()));
+        Logger::instance().info("Calculation completed, result: " + std::to_string(task.getResult()));
 
 
         if (task.getOperation() == "!")
@@ -52,6 +52,8 @@ void Application::run(int argc, char** argv)
     }
     catch (const std::exception& e)
     {
+        Logger::instance().error("Error: " + std::string(e.what()));
+
         std::cout << "Error: " << e.what() << std::endl;
     }
 }

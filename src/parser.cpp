@@ -42,7 +42,7 @@ Task Parser::parse(int argc, char** argv)
         throw std::invalid_argument("Wrong argument count");
     }
 
-    if (std::string(argv[1]) == "-h" || std::string(argv[1]) == "--h")
+    if (std::string(argv[1]) == "-h" || std::string(argv[1]) == "--h" || std::string(argv[1]) == "--help")
     {
         print_help();
         exit(0);
