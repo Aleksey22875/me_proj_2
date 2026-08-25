@@ -11,4 +11,5 @@ class Application
 
   public:
     void run(int argc, char** argv);
+    void print_help();
 };

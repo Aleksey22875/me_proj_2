@@ -106,7 +106,6 @@ add_executable(calculator
     src/application.cpp
     src/calculator.cpp
     src/parser.cpp
-    src/task.cpp
     src/logger.cpp
     
 )

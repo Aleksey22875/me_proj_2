@@ -8,33 +8,33 @@ void Calculator::calculate(Task& task)
 {
 
 
-    if (task.getOperation() == "+")
+    if (task.operation == '+')
     {
-        task.setResult(libmath::addition(task.getVal_1(),
-                                         task.getVal_2().value()));
+        task.result = libmath::addition(task.value_1.value(),
+                                         task.value_2.value());
     }
-    else if (task.getOperation() == "-")
+    else if (task.operation == '-')
     {
-        task.setResult(libmath::subtraction(task.getVal_1(),
-                                            task.getVal_2().value()));
+        task.result = libmath::subtraction(task.value_1.value(),
+                                            task.value_2.value());
     }
-    else if (task.getOperation() == "*")
+    else if (task.operation == '*')
     {
-        task.setResult(libmath::multiplication(
-            task.getVal_1(), task.getVal_2().value()));
+        task.result = libmath::multiplication(
+            task.value_1.value(), task.value_2.value());
     }
-    else if (task.getOperation() == "/")
+    else if (task.operation == '/')
     {
-        task.setResult(libmath::division(task.getVal_1(),
-                                         task.getVal_2().value()));
+        task.result =  libmath::division(task.value_1.value(),
+                                         task.value_2.value());
     }
-    else if (task.getOperation() == "^")
+    else if (task.operation == '^')
     {
-        task.setResult(
-            libmath::power(task.getVal_1(), task.getVal_2().value()));
+        task.result = 
+            libmath::power(task.value_1.value(), task.value_2.value());
     }
-    else if (task.getOperation() == "!")
+    else if (task.operation == '!')
     {
-        task.setResult(libmath::factorial(task.getVal_1()));
+        task.result = libmath::factorial(task.value_1.value());
     }
 }
