@@ -5,5 +5,5 @@
 class Calculator
 {
   public:
-  void calculate(Task& task);
+  static void calculate(Task& task);
 };

@@ -43,28 +43,28 @@ void Application::run(int argc, char** argv)
 
         Task task = parser.parse(argc, argv);
 
-        Logger::instance().info("Operation parsed: " + task.operation.value());
+        if (task.operation == 'h')
+        {
+            print_help();
+            return;
+        }
 
-        calculator.calculate(task);
+        Logger::instance().info(std::string("Operation parsed: " + task.operation.value()));
+
+        Calculator::calculate(task);
 
         Logger::instance().info("Calculation completed, result: " +
                                 std::to_string(task.result));
 
-        if(task.operation == 'h')
-        {
-            print_help();
-            exit(0);
-        }
-
         if (task.operation == '!')
         {
-            std::cout << task.value_1.value() << " " << task.operation.value() << " = "
-                      << task.result << std::endl;
+            std::cout << task.value_1.value() << " " << task.operation.value()
+                      << " = " << task.result << std::endl;
         }
         else
         {
-            std::cout << task.value_1.value() << " " << task.operation.value() << " "
-                      << task.value_2.value() << " = " << task.result
+            std::cout << task.value_1.value() << " " << task.operation.value()
+                      << " " << task.value_2.value() << " = " << task.result
                       << std::endl;
         }
     }

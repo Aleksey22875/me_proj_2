@@ -26,6 +26,8 @@ Task Parser::parse(int argc, char** argv)
         second = data["second"].get<int>();
     }
 
-    return Task(data["first"].get<int>(), data["operation"].get<char>(),
+    std::string operation = data["operation"].get<std::string>();
+
+    return Task(data["first"].get<int>(), operation[0],
                 second);
 }

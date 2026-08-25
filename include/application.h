@@ -7,7 +7,6 @@ class Application
 {
   private:
   Parser parser;
-  Calculator calculator;
 
   public:
     void run(int argc, char** argv);
