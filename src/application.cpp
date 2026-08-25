@@ -49,7 +49,7 @@ void Application::run(int argc, char** argv)
             return;
         }
 
-        Logger::instance().info(std::string("Operation parsed: " + task.operation.value()));
+        Logger::instance().info(std::string("Operation parsed: ") + task.operation.value());
 
         Calculator::calculate(task);
 
