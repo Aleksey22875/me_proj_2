@@ -15,7 +15,7 @@ Task Parser::parse(int argc, char** argv)
     }
     if (std::string(argv[1]) == "-h" || std::string(argv[1]) == "--h" || std::string(argv[1]) == "--help")
     {
-        return Task(std::nullopt, 'h', std::nullopt);
+        return Task{std::nullopt, 'h', std::nullopt};
     } 
 
     json data = json::parse(argv[1]);
@@ -28,6 +28,6 @@ Task Parser::parse(int argc, char** argv)
 
     std::string operation = data["operation"].get<std::string>();
 
-    return Task(data["first"].get<int>(), operation[0],
-                second);
+    return Task{data["first"].get<int>(), operation[0],
+                second};
 }
