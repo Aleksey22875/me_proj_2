@@ -8,6 +8,30 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 include(FetchContent)
 
 # =========================
+# JSON
+# =========================
+
+FetchContent_Declare(
+    json
+    GIT_REPOSITORY https://github.com/nlohmann/json.git
+    GIT_TAG v3.11.3
+)
+
+# =========================
+# spdlog
+# =========================
+
+FetchContent_Declare(
+    spdlog
+    GIT_REPOSITORY https://github.com/gabime/spdlog.git
+    GIT_TAG v1.17.0
+)
+
+FetchContent_MakeAvailable(spdlog)
+
+FetchContent_MakeAvailable(json)
+
+# =========================
 # clang-format
 # =========================
 
@@ -60,13 +84,30 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(libmath)
 
 # =========================
+# GoogleTest
+# =========================
+
+FetchContent_Declare(
+    googletest
+    GIT_REPOSITORY https://github.com/google/googletest.git
+    GIT_TAG v1.17.0
+)
+
+FetchContent_MakeAvailable(googletest)
+
+enable_testing()
+
+# =========================
 # calculator
 # =========================
 
 add_executable(calculator
     src/main.cpp
-    src/app.cpp
+    src/application.cpp
+    src/calculator.cpp
     src/parser.cpp
+    src/logger.cpp
+    
 )
 
 if(ENABLE_CLANG_FORMAT)
@@ -80,7 +121,34 @@ if(ENABLE_CLANG_TIDY)
 endif()
 
 target_include_directories(calculator PRIVATE
+    include
     ${libmath_SOURCE_DIR}/include
 )
 
+target_link_libraries(calculator PRIVATE
+    nlohmann_json::nlohmann_json
+    spdlog::spdlog
+)
+
 install(TARGETS calculator RUNTIME DESTINATION bin)
+
+
+# tests
+# =========================
+
+add_executable(calculator_test
+    calculator_test/app_test.cpp
+)
+
+target_include_directories(calculator_test PRIVATE
+    ${libmath_SOURCE_DIR}/include
+)
+
+target_link_libraries(calculator_test
+    PRIVATE
+    GTest::gtest_main
+    math
+)
+
+include(GoogleTest)
+gtest_discover_tests(calculator_test)

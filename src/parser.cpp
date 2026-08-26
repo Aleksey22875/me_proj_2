@@ -1,58 +1,33 @@
-#include "parser.h"
+#include "../include/parser.h"
 
-#include <unistd.h>
+#include <stdexcept>
+#include <iostream>
+#include <string>
 
-#include <cstdlib>
 
-#include <cstdio>
-namespace Parser
+
+Task Parser::parse(int argc, char** argv)
 {
-int parse(int argc, char** argv, app::Task& task)
-{
-    int x = 0;
-    int y = 0;
-    char op = 0;
 
-    int opt;
-
-    bool hasY = false;
-
-    while ((opt = getopt(argc, argv, "x:y:o:h")) != -1)
+    if (argc != 2)
     {
-        switch (opt)
-        {
-            case 'x':
-                x = atoi(optarg);
-                break;
-            case 'y':
-                y = atoi(optarg);
-                hasY = true;
-                break;
-            case 'o':
-                op = optarg[0];
-                break;
-            case 'h':
-                app::print_help();
-                return 3;
+        throw std::invalid_argument("Wrong argument count");
+    }
+    if (std::string(argv[1]) == "-h" || std::string(argv[1]) == "--h" || std::string(argv[1]) == "--help")
+    {
+        return Task{std::nullopt, 'h', std::nullopt};
+    } 
 
-            default:
-                printf("Invalid arguments\n"); 
-                return 1;
-        }
+    json data = json::parse(argv[1]);
+    std::optional<int> second = std::nullopt;
+
+    if (data.contains("second"))
+    {
+        second = data["second"].get<int>();
     }
 
-    if (op != '!' && !hasY)
-    {
-        printf("Missing second operand\n");
-        return 1;
-    }
-    if (op == '!' && !hasY)
-    {
-        y = 0;
-    }
-    task.val_1 = x;
-    task.operation = op;
-    task.val_2 = y;
-    return 0;
+    std::string operation = data["operation"].get<std::string>();
+
+    return Task{data["first"].get<int>(), operation[0],
+                second};
 }
-} // namespace Parser
